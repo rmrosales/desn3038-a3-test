@@ -85,3 +85,22 @@ app.get("/monthlyTracking",(request, response) => {
     });
 
 })
+
+app.get("/sleepQuality",(request, response) => {
+
+    pool.query(`SELECT sleep_quality, AVG(sleep_duration) AS avg_hours
+FROM Sleep
+GROUP BY sleep_quality`, [], (error, result) =>{
+
+        console.error(error);
+        console.log(result);
+
+        response.json(
+            {
+                status: "success",
+                data: result
+            }
+        )
+    });
+
+})
